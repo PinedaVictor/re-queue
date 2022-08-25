@@ -3,10 +3,23 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import firebase from 'firebase/compat/app';
 import { getAuth } from 'firebase/auth';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
   console.log('The firebase app:', firebase);
   console.log('The firebase app:', getAuth());
+
+  const apiCall = async () => {
+    try {
+      const who = await fetch('http://localhost:3000/api/hello');
+      const whoData = await who.json();
+      console.log('The who:', whoData);
+    } catch (error) {
+      console.log('THe error:', error);
+    }
+  };
+  apiCall();
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,6 +30,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         THis will be the intro to Next.js with React Query
+        <Link href={'/blog'}>Blog</Link>
       </main>
 
       <footer className={styles.footer}></footer>
